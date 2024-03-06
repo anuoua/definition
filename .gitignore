@@ -173,4 +173,7 @@ dist
 
 # Finder (MacOS) folder config
 .DS_Store
+.dist
 
+test/def-records
+test/def-types

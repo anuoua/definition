@@ -1,11 +1,11 @@
-import * as ts from "typescript";
-import { Options } from "./types";
+import ts from "typescript";
+import { Resource } from "../../types";
 
 const { factory } = ts;
 
-export const records = (arrayJson: Record<string, any>[], options: Options) => {
-  const { identify } = options;
-  const jsonFile = ts.parseJsonText("", JSON.stringify(arrayJson));
+export const records = (resource: Resource) => {
+  const { identify, valueField } = resource;
+  const jsonFile = ts.parseJsonText("", JSON.stringify(resource.records));
 
   const recordsName = `${identify}_records`;
   const recordsTypeName = `${identify}_Records`;
@@ -52,7 +52,7 @@ export const records = (arrayJson: Record<string, any>[], options: Options) => {
           ),
           factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)
         ),
-        factory.createLiteralTypeNode(factory.createStringLiteral("value"))
+        factory.createLiteralTypeNode(factory.createStringLiteral(valueField))
       )
     ),
   ]);

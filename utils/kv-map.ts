@@ -1,19 +1,21 @@
-import { Indices, InferKR, Key, Tuple } from "./types";
+import { InferKR, Key } from "./types";
 
 export const kvMap = <
   Records extends readonly Record<string, any>[],
-  Keys extends readonly [...Key[]]
+  Keys extends readonly [...Key[]],
+  Field extends string
 >(
   records: Records,
-  keys: Keys
+  keys: Keys,
+  valueField: Field
 ) => {
   type KR = InferKR<Records, Keys>;
 
   type KV = {
-    [K in keyof KR]: KR[K]["value"];
+    [K in keyof KR]: KR[K][Field];
   };
 
   return records.reduce((pre, cur, index) => {
-    pre[keys[index]] = cur.value;
+    pre[keys[index]] = cur[valueField];
   }, {} as any) as KV;
 };

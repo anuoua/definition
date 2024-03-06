@@ -1,15 +1,27 @@
 {
   "name": "definition",
-  "module": "src/index.ts",
-  "version": "0.0.0",
+  "main": "dist/index.js",
+  "version": "1.0.2",
   "type": "module",
+  "bin": {
+    "def": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "rimraf dist && bun run build:dts && bun run build.ts",
+    "build:dts": "tsc -p tsconfig.build.json"
+  },
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.7",
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "rimraf": "^5.0.5"
   },
   "files": [],
   "dependencies": {
-    "speakingurl": "^14.0.1",
+    "commander": "^12.0.0",
+    "config-file-ts": "^0.2.6",
+    "glob": "^10.3.10",
+    "lodash": "^4.17.21",
     "typescript": "^5.3.3",
     "varname": "^6.1.0"
   }

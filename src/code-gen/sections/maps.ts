@@ -1,23 +1,18 @@
-import * as ts from "typescript";
-import { defaultKeyGen } from "./enums";
-import { Data, Options } from "./types";
+import ts from "typescript";
+import { Resource } from "../../types";
 
 const { factory } = ts;
 
-export const maps = (records: Record<string, any>[], options: Options) => {
-  const { identify } = options;
+export const maps = (resource: Resource) => {
+  const { identify, valueField } = resource;
 
   const recordsName = `${identify}_records`;
   const keysTypeName = `${identify}_Keys`;
-  const keysName = `${identify}_keys`;
+  const keyListName = `${identify}_key_list`;
 
-  const { keys } = records.reduce<Data>(
-    (pre, cur) => {
-      return {
-        keys: [...pre.keys, defaultKeyGen(cur)],
-      };
-    },
-    { keys: [] }
+  const keys = resource.records.reduce<string[]>(
+    (pre, cur) => [...pre, resource.keyGen(cur)],
+    []
   );
 
   const keyArray = factory.createVariableStatement(
@@ -25,7 +20,7 @@ export const maps = (records: Record<string, any>[], options: Options) => {
     factory.createVariableDeclarationList(
       [
         factory.createVariableDeclaration(
-          factory.createIdentifier(`${identify}_keys`),
+          factory.createIdentifier(keyListName),
           undefined,
           undefined,
           factory.createAsExpression(
@@ -49,7 +44,7 @@ export const maps = (records: Record<string, any>[], options: Options) => {
     )
   );
 
-  const createDeclear = (name: string) => {
+  const createDeclear = (name: string, valueField?: string) => {
     const callName = `${identify}_${name}`;
     return factory.createVariableStatement(
       [factory.createToken(ts.SyntaxKind.ExportKeyword)],
@@ -64,7 +59,10 @@ export const maps = (records: Record<string, any>[], options: Options) => {
               undefined,
               [
                 factory.createIdentifier(recordsName),
-                factory.createIdentifier(keysName),
+                factory.createIdentifier(keyListName),
+                ...(valueField
+                  ? [factory.createStringLiteral(valueField)]
+                  : []),
               ]
             )
           ),
@@ -76,9 +74,9 @@ export const maps = (records: Record<string, any>[], options: Options) => {
 
   const krDeclear = createDeclear("kr");
 
-  const kvDeclear = createDeclear("kv");
+  const kvDeclear = createDeclear("kv", valueField);
 
-  const vrDeclear = createDeclear("vr");
+  const vrDeclear = createDeclear("vr", valueField);
 
   return factory.createNodeArray([keyArray, krDeclear, vrDeclear, kvDeclear]);
 };

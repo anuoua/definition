@@ -1,17 +1,23 @@
-export enum Export {
-  ValueEnums = 'value_enums',
-  KeyEnums = 'key_enums',
-  Records = 'records',
-  KeyValue = 'key_value',
-  ValueKey = 'value_key',
-  KeyRecord = 'key_record',
-  ValueRecord = 'value_record',
+import * as varname from "varname";
+
+export type KeyFormat = Exclude<keyof typeof varname, "default" | "split">;
+
+export interface Resource {
+  records: Record<string, any>[];
+  utils: string;
+  identify: string;
+  out: string;
+  valueField: string;
+  keyFormat: KeyFormat;
+  keyField: string;
+  keyGen: (record: Record<string, any>) => string;
 }
 
-export interface Definition<R = Record<string, any>> {
-  keyField?: keyof R; // default is 'key'
-  valueField?: keyof R; // default is 'value'
-  keyGen?: (record: R) => string;
-  records: R[];
-  export: (`${Export}` | Export)[];
+export interface ConfigOptions {
+  dir: string;
+  output: string;
+  valueField?: string;
+  keyField?: string;
+  keyFormat?: KeyFormat;
+  keyGen?: (record: Record<string, any>) => string;
 }

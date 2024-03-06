@@ -2,15 +2,17 @@ import { InferKR, Key } from "./types";
 
 export const vrMap = <
   Records extends readonly Record<string, any>[],
-  Keys extends readonly [...Key[]]
+  Keys extends readonly [...Key[]],
+  Field extends string
 >(
   records: Records,
-  keys: Keys
+  keys: Keys,
+  valueField: Field
 ) => {
   type KR = InferKR<Records, Keys>;
 
   type KV = {
-    [K in keyof KR]: KR[K]["value"];
+    [K in keyof KR]: KR[K][Field];
   };
 
   type VR = {
@@ -18,6 +20,6 @@ export const vrMap = <
   };
 
   return records.reduce((pre, cur) => {
-    pre[cur.value] = cur;
+    pre[cur[valueField]] = cur;
   }, {} as any) as VR;
 };
