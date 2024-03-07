@@ -1,6 +1,6 @@
-# Definition
+# Definition [![publish](https://github.com/anuoua/definition/actions/workflows/main.yml/badge.svg)](https://github.com/anuoua/definition/actions/workflows/main.yml)
 
-Generate typescript type definition and enums from json records.
+Generate typescript type definitions and enumerations from business definition json records.
 
 ## Install
 
