@@ -175,5 +175,4 @@ dist
 .DS_Store
 .dist
 
-test/def-records
 test/def-types
