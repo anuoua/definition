@@ -1,0 +1,20 @@
+name: publish
+on:
+  push:
+    tags:        
+      - '*'
+jobs:
+  publish:
+    name: publish
+    runs-on: ubuntu-latest
+    steps:
+      # ...
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+
+      # run any `bun` or `bunx` command
+      - run: bun install
+      - run: bun test
+      - run: bun run build
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_PUBLISH_TOKEN" > ~/.npmrc
+      - run: npm publish --access public
