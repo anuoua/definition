@@ -1,6 +1,6 @@
 import { expect, it } from "bun:test";
 import { codeGen } from "../src/code-gen/generate";
-import { defaultKeyGen } from "../src/command-generate/default-key-gen";
+import { defaultKeyGen } from "../src/utils/default-key-gen";
 import { generate } from "../src";
 
 it("code generate", () => {
@@ -22,5 +22,5 @@ it("code generate", () => {
 });
 
 it("from folder", async () => {
-  await generate({ config: "./test/definition.config.ts" });
+  await generate({ config: "./test/definition.config.mjs" });
 });

@@ -1,5 +1,5 @@
 import { program } from "commander";
-import { GenerateOptions, generate } from "./command-generate/action";
+import { GenerateOptions, generate } from "./action";
 
 program
   .command("generate")

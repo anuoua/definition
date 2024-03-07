@@ -1,10 +1,11 @@
 import { cwd } from "process";
-import { resolve, dirname, relative } from "path";
+import { resolve, dirname, parse } from "path";
+import { fileURLToPath } from "url";
 import { existsSync, writeFileSync, mkdirSync, cpSync } from "fs";
-import { loadTsConfig } from "config-file-ts";
-import { ConfigOptions } from "../types";
-import { fromDirJsons } from "./from-dir-jsons";
-import { codeGen } from "../code-gen/generate";
+// import { loadTsConfig } from "config-file-ts";
+import { ConfigOptions } from "./types";
+import { fromDirJsons } from "./utils/from-dir-jsons";
+import { codeGen } from "./code-gen/generate";
 
 const resolvePath = (name: string) => resolve(cwd(), name);
 
@@ -12,12 +13,12 @@ const getConfig = async (config?: string) => {
   const paths = [
     resolvePath("definition.config.mjs"),
     resolvePath("definition.config.cjs"),
-    resolvePath("definition.config.ts"),
+    // resolvePath("definition.config.ts"),
   ];
 
   const configPath = config
     ? existsSync(resolvePath(config))
-      ? config
+      ? resolvePath(config)
       : undefined
     : await (async () => {
         for (let item of paths) {
@@ -27,13 +28,16 @@ const getConfig = async (config?: string) => {
 
   if (!configPath) throw new Error("Config file is not exist");
 
-  if (configPath.endsWith(".mjs") || configPath.endsWith(".cjs")) {
-    const model = await import(configPath);
-    return (await model.default()) as ConfigOptions;
-  } else {
-    const config = loadTsConfig<() => Promise<ConfigOptions>>(configPath)!;
-    return await config();
-  }
+  const model = await import(configPath);
+  return (await model.default()) as ConfigOptions;
+
+  // if (configPath.endsWith(".mjs") || configPath.endsWith(".cjs")) {
+  //   const model = await import(configPath);
+  //   return (await model.default()) as ConfigOptions;
+  // } else {
+  //   const config = loadTsConfig<() => Promise<ConfigOptions>>(configPath)!;
+  //   return await config();
+  // }
 };
 
 export interface GenerateOptions {
@@ -55,7 +59,11 @@ export const generate = async (options: GenerateOptions) => {
     writeFileSync(resource.out, code);
   }
 
-  cpSync("./utils", resolve(config.output, "utils"), {
+  const { dir } = parse(fileURLToPath(import.meta.url));
+
+  const utilsPath = resolve(dir, "../utils");
+
+  cpSync(utilsPath, resolve(config.output, "utils"), {
     recursive: true,
   });
 };
