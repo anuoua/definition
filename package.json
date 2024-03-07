@@ -16,7 +16,10 @@
     "bun-types": "latest",
     "rimraf": "^5.0.5"
   },
-  "files": [],
+  "files": [
+    "dist",
+    "utils"
+  ],
   "dependencies": {
     "commander": "^12.0.0",
     "config-file-ts": "^0.2.6",
