@@ -6,6 +6,14 @@
   "bin": {
     "def": "dist/cli.js"
   },
+  "keywords": [
+    "json",
+    "records",
+    "definition",
+    "typescript",
+    "enums",
+    "type"
+  ],
   "scripts": {
     "build": "rimraf dist && bun run build:dts && bun run build.ts",
     "build:dts": "tsc -p tsconfig.build.json"
