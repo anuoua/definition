@@ -1,7 +1,7 @@
 {
   "name": "definition",
   "main": "dist/index.js",
-  "version": "1.0.3-0",
+  "version": "1.0.3-1",
   "type": "module",
   "bin": {
     "def": "dist/cli.js"
