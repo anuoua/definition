@@ -121,6 +121,6 @@ interface ConfigOptions {
 
 **Note**: when `keyGen` is configured, `keyFormat` will be ignored.
 
-## Liscence
+## License
 
 MIT
