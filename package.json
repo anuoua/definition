@@ -3,8 +3,13 @@
   "main": "dist/index.js",
   "version": "2.0.1",
   "type": "module",
+  "author": {
+    "name": "anuoua",
+    "url": "https://github.com/anuoua"
+  },
+  "homepage": "https://github.com/anuoua/definition",
   "bin": {
-    "def": "dist/cli.js"
+    "def": "./bin/cli.js"
   },
   "keywords": [
     "json",
@@ -25,6 +30,7 @@
     "rimraf": "^5.0.5"
   },
   "files": [
+    "bin",
     "dist",
     "utils"
   ],
