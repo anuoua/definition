@@ -28,7 +28,7 @@ const getConfig = async (config?: string) => {
 
   if (!configPath) throw new Error("Config file is not exist");
 
-  const model = await import(configPath);
+  const model = await import(`file://${configPath}`);
   return (await model.default()) as ConfigOptions;
 
   // if (configPath.endsWith(".mjs") || configPath.endsWith(".cjs")) {

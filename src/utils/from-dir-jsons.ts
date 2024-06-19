@@ -4,6 +4,7 @@ import { ConfigOptions, Resource } from "../types";
 import { globSync } from "glob";
 import { underscore } from "varname";
 import { defaultKeyGen } from "./default-key-gen";
+import { platform } from "process";
 
 export const fromDirJsons = (config: ConfigOptions): Resource[] => {
   if (!existsSync(config.dir))
@@ -11,7 +12,9 @@ export const fromDirJsons = (config: ConfigOptions): Resource[] => {
 
   const pattern = resolve(config.dir, "**/*.json");
 
-  const recordFiles = globSync(pattern);
+  const recordFiles = globSync(pattern, {
+    windowsPathsNoEscape: platform === "win32",
+  });
 
   const resources: Resource[] = [];
 
