@@ -10,5 +10,6 @@ export const krMap = <
   type KR = InferKR<Records, Keys>;
   return records.reduce((pre, cur, index) => {
     pre[keys[index]] = cur;
+    return pre;
   }, {} as any) as KR;
 };

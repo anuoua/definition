@@ -17,5 +17,6 @@ export const kvMap = <
 
   return records.reduce((pre, cur, index) => {
     pre[keys[index]] = cur[valueField];
+    return pre;
   }, {} as any) as KV;
 };

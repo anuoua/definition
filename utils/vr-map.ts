@@ -21,5 +21,6 @@ export const vrMap = <
 
   return records.reduce((pre, cur) => {
     pre[cur[valueField]] = cur;
+    return pre;
   }, {} as any) as VR;
 };
