@@ -12,6 +12,7 @@ export const kvMap = <
   type KR = InferKR<Records, Keys>;
 
   type KV = {
+    // @ts-expect-error
     [K in keyof KR]: KR[K][Field];
   };
 
