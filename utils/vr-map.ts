@@ -6,6 +6,7 @@ export const vrMap = <
   Field extends string
 >(
   records: Records,
+  // @ts-ignore
   keys: Keys,
   valueField: Field
 ) => {
