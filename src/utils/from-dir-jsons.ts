@@ -1,5 +1,5 @@
 import { readFileSync, existsSync } from "fs";
-import { resolve, relative, parse, join } from "path";
+import { resolve, relative, parse, sep } from "path";
 import { ConfigOptions, Resource } from "../types";
 import { globSync } from "glob";
 import { underscore } from "varname";
@@ -42,7 +42,7 @@ export const fromDirJsons = (config: ConfigOptions): Resource[] => {
     })();
 
     resources.push({
-      utils,
+      utils: utils.split(sep).join('/'),
       identify: underscore(recordFileName).toUpperCase(),
       out,
       records,
