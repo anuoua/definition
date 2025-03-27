@@ -26,6 +26,8 @@ export default () => {
 };
 ```
 
+See [ConfigOptions](#configoptions) Options for details.
+
 ### Create json records in target directory.
 
 `./jsons/hello.json`
@@ -36,6 +38,10 @@ export default () => {
   { "key": "hello-2", "value": "hello2", "label": "cba2" }
 ]
 ```
+
+Records is extendable, for example `{ "key": "hello-1", "value": "hello", "label": "cba", "createBy": "god" },` is okay.
+
+`key` and `value` are required, and `key` can be customized via the configuration file.
 
 ### Run command
 
@@ -56,7 +62,7 @@ or add command to scripts with `npm run`
 ### Result
 
 ```
-.
+definitions
 ├── hello.ts
 └── utils
     ├── index.ts
@@ -68,20 +74,20 @@ or add command to scripts with `npm run`
 
 `./definitions/hello.ts`
 
-```
+```typescript
 import { krMap, vrMap, kvMap } from "../utils";
 export const ROUTES_records_readonly = [{ "key": "hello-1", "value": "hello", "label": "cba" }, { "key": "hello-2", "value": "hello2", "label": "cba2" }] as const;
-export const ROUTES_records = ROUTES_records_readonly.concat();
-export type ROUTES_Records = typeof ROUTES_records_readonly;
-export type ROUTES_Values = ROUTES_Records[number]["value"];
+export const ROUTES_records = ROUTES_records_readonly.concat(); // mutable records
+export type ROUTES_Records = typeof ROUTES_records_readonly; // record type
+export type ROUTES_Values = ROUTES_Records[number]["value"]; // values's type
 export const ROUTES_Keys = {
     Hello1: "Hello1",
     Hello2: "Hello2"
 } as const;
-export const ROUTES_key_list = [ROUTES_Keys.Hello1, ROUTES_Keys.Hello2] as const;
-export const ROUTES_kr = krMap(ROUTES_records_readonly, ROUTES_key_list);
-export const ROUTES_vr = vrMap(ROUTES_records_readonly, ROUTES_key_list, "value");
-export const ROUTES_kv = kvMap(ROUTES_records_readonly, ROUTES_key_list, "value");
+export const ROUTES_key_list = [ROUTES_Keys.Hello1, ROUTES_Keys.Hello2] as const; // key list
+export const ROUTES_kr = krMap(ROUTES_records_readonly, ROUTES_key_list); // key -> record map
+export const ROUTES_vr = vrMap(ROUTES_records_readonly, ROUTES_key_list, "value"); // value -> record map
+export const ROUTES_kv = kvMap(ROUTES_records_readonly, ROUTES_key_list, "value"); // key -> value map
 ```
 
 ## CLI
