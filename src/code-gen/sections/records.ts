@@ -7,6 +7,7 @@ export const records = (resource: Resource) => {
   const { identify, valueField } = resource;
   const jsonFile = ts.parseJsonText("", JSON.stringify(resource.records));
 
+  const recordsReadonlyName = `${identify}_records_readonly`;
   const recordsName = `${identify}_records`;
   const recordsTypeName = `${identify}_Records`;
 
@@ -16,7 +17,7 @@ export const records = (resource: Resource) => {
       factory.createVariableDeclarationList(
         [
           factory.createVariableDeclaration(
-            factory.createIdentifier(recordsName),
+            factory.createIdentifier(recordsReadonlyName),
             undefined,
             undefined,
             factory.createAsExpression(
@@ -31,12 +32,31 @@ export const records = (resource: Resource) => {
         ts.NodeFlags.Const
       )
     ),
+    factory.createVariableStatement(
+      [factory.createToken(ts.SyntaxKind.ExportKeyword)],
+      factory.createVariableDeclarationList(
+        [factory.createVariableDeclaration(
+          factory.createIdentifier(recordsName),
+          undefined,
+          undefined,
+          factory.createCallExpression(
+            factory.createPropertyAccessExpression(
+              factory.createIdentifier(recordsReadonlyName),
+              factory.createIdentifier("concat")
+            ),
+            undefined,
+            []
+          )
+        )],
+        ts.NodeFlags.Const | ts.NodeFlags.Constant | ts.NodeFlags.Constant
+      )
+    ),    
     factory.createTypeAliasDeclaration(
       [factory.createToken(ts.SyntaxKind.ExportKeyword)],
       factory.createIdentifier(recordsTypeName),
       undefined,
       factory.createTypeQueryNode(
-        factory.createIdentifier(recordsName),
+        factory.createIdentifier(recordsReadonlyName),
         undefined
       )
     ),

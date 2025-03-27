@@ -11,16 +11,24 @@ export const enums = (resource: Resource) => {
     []
   );
 
-  return factory.createNodeArray([
-    factory.createEnumDeclaration(
-      [factory.createToken(ts.SyntaxKind.ExportKeyword)],
-      factory.createIdentifier(`${identify}_Keys`),
-      keys.map((key) => {
-        return factory.createEnumMember(
-          factory.createIdentifier(key),
-          factory.createStringLiteral(key)
-        );
-      })
-    ),
-  ]);
+  return factory.createVariableStatement(
+    [factory.createToken(ts.SyntaxKind.ExportKeyword)],
+    factory.createVariableDeclarationList(
+      [factory.createVariableDeclaration(
+        factory.createIdentifier("TEST_keys"),
+        undefined,
+        undefined,
+        factory.createObjectLiteralExpression(
+          keys.map(key => (
+            factory.createPropertyAssignment(
+              factory.createIdentifier(key),
+              factory.createStringLiteral(key)
+            )
+          )),
+          true
+        )
+      )],
+      ts.NodeFlags.Const | ts.NodeFlags.Constant | ts.NodeFlags.Constant
+    )
+  );
 };
