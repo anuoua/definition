@@ -35,22 +35,24 @@ export const records = (resource: Resource) => {
     factory.createVariableStatement(
       [factory.createToken(ts.SyntaxKind.ExportKeyword)],
       factory.createVariableDeclarationList(
-        [factory.createVariableDeclaration(
-          factory.createIdentifier(recordsName),
-          undefined,
-          undefined,
-          factory.createCallExpression(
-            factory.createPropertyAccessExpression(
-              factory.createIdentifier(recordsReadonlyName),
-              factory.createIdentifier("concat")
-            ),
+        [
+          factory.createVariableDeclaration(
+            factory.createIdentifier(recordsName),
             undefined,
-            []
-          )
-        )],
-        ts.NodeFlags.Const | ts.NodeFlags.Constant | ts.NodeFlags.Constant
+            undefined,
+            factory.createCallExpression(
+              factory.createPropertyAccessExpression(
+                factory.createIdentifier(recordsReadonlyName),
+                factory.createIdentifier("concat")
+              ),
+              undefined,
+              []
+            )
+          ),
+        ],
+        ts.NodeFlags.Const
       )
-    ),    
+    ),
     factory.createTypeAliasDeclaration(
       [factory.createToken(ts.SyntaxKind.ExportKeyword)],
       factory.createIdentifier(recordsTypeName),

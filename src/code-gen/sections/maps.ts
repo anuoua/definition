@@ -6,7 +6,7 @@ const { factory } = ts;
 export const maps = (resource: Resource) => {
   const { identify, valueField } = resource;
 
-  const recordsName = `${identify}_records`;
+  const recordsName = `${identify}_records_readonly`;
   const keysTypeName = `${identify}_Keys`;
   const keyListName = `${identify}_key_list`;
 

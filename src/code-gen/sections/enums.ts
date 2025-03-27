@@ -14,21 +14,29 @@ export const enums = (resource: Resource) => {
   return factory.createVariableStatement(
     [factory.createToken(ts.SyntaxKind.ExportKeyword)],
     factory.createVariableDeclarationList(
-      [factory.createVariableDeclaration(
-        factory.createIdentifier("TEST_keys"),
-        undefined,
-        undefined,
-        factory.createObjectLiteralExpression(
-          keys.map(key => (
-            factory.createPropertyAssignment(
-              factory.createIdentifier(key),
-              factory.createStringLiteral(key)
+      [
+        factory.createVariableDeclaration(
+          factory.createIdentifier(identify + "_Keys"),
+          undefined,
+          undefined,
+          factory.createAsExpression(
+            factory.createObjectLiteralExpression(
+              keys.map((key) =>
+                factory.createPropertyAssignment(
+                  factory.createIdentifier(key),
+                  factory.createStringLiteral(key)
+                )
+              ),
+              true
+            ),
+            factory.createTypeReferenceNode(
+              factory.createIdentifier("const"),
+              undefined
             )
-          )),
-          true
-        )
-      )],
-      ts.NodeFlags.Const | ts.NodeFlags.Constant | ts.NodeFlags.Constant
+          )
+        ),
+      ],
+      ts.NodeFlags.Const
     )
   );
 };
