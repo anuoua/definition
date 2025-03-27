@@ -32,8 +32,8 @@ export default () => {
 
 ```json
 [
-  { "value": "hello", "key": "hello" },
-  { "value": "world", "key": "world" }
+  { "key": "hello-1", "value": "hello", "label": "cba" },
+  { "key": "hello-2", "value": "hello2", "label": "cba2" }
 ]
 ```
 
@@ -69,18 +69,19 @@ or add command to scripts with `npm run`
 `./definitions/hello.ts`
 
 ```
-import { krMap, vrMap, kvMap } from "./utils";
-export const HELLO_records = [{ "value": "hello", "key": "hello" }, { "value": "world", "key": "world" }] as const;
-export type HELLO_Records = typeof HELLO_records;
-export type HELLO_Values = HELLO_Records[number]["value"];
-export enum HELLO_Keys {
-    Hello = "Hello",
-    World = "World"
-}
-export const HELLO_key_list = [HELLO_Keys.Hello, HELLO_Keys.World] as const;
-export const HELLO_kr = krMap(HELLO_records, HELLO_key_list);
-export const HELLO_vr = vrMap(HELLO_records, HELLO_key_list, "value");
-export const HELLO_kv = kvMap(HELLO_records, HELLO_key_list, "value");
+import { krMap, vrMap, kvMap } from "../utils";
+export const ROUTES_records_readonly = [{ "key": "hello-1", "value": "hello", "label": "cba" }, { "key": "hello-2", "value": "hello2", "label": "cba2" }] as const;
+export const ROUTES_records = ROUTES_records_readonly.concat();
+export type ROUTES_Records = typeof ROUTES_records_readonly;
+export type ROUTES_Values = ROUTES_Records[number]["value"];
+export const ROUTES_Keys = {
+    Hello1: "Hello1",
+    Hello2: "Hello2"
+} as const;
+export const ROUTES_key_list = [ROUTES_Keys.Hello1, ROUTES_Keys.Hello2] as const;
+export const ROUTES_kr = krMap(ROUTES_records_readonly, ROUTES_key_list);
+export const ROUTES_vr = vrMap(ROUTES_records_readonly, ROUTES_key_list, "value");
+export const ROUTES_kv = kvMap(ROUTES_records_readonly, ROUTES_key_list, "value");
 ```
 
 ## CLI
