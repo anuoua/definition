@@ -41,6 +41,8 @@ See [ConfigOptions](#configoptions) Options for details.
 
 Records is extendable, for example `{ "key": "hello-1", "value": "hello", "label": "cba", "createBy": "god" },` is okay.
 
+`value` should be string or number.
+
 `key` and `value` are required, and `key` can be customized via the configuration file.
 
 ### Run command
