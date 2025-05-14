@@ -82,10 +82,10 @@ export const ROUTES_records_readonly = [{ "key": "hello-1", "value": "hello", "l
 export const ROUTES_records = ROUTES_records_readonly.concat(); // mutable records
 export type ROUTES_Records = typeof ROUTES_records_readonly; // record type
 export type ROUTES_Values = ROUTES_Records[number]["value"]; // values's type
-export const ROUTES_Keys = {
-    Hello1: "Hello1",
-    Hello2: "Hello2"
-} as const;
+export enum TEST_Keys {
+    HelloHello = "HelloHello",
+    WorldWorld = "WorldWorld"
+}
 export const ROUTES_key_list = [ROUTES_Keys.Hello1, ROUTES_Keys.Hello2] as const; // key list
 export const ROUTES_kr = krMap(ROUTES_records_readonly, ROUTES_key_list); // key -> record map
 export const ROUTES_vr = vrMap(ROUTES_records_readonly, ROUTES_key_list, "value"); // value -> record map
