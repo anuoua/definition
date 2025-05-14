@@ -78,18 +78,18 @@ definitions
 
 ```typescript
 import { krMap, vrMap, kvMap } from "../utils";
-export const ROUTES_records_readonly = [{ "key": "hello-1", "value": "hello", "label": "cba" }, { "key": "hello-2", "value": "hello2", "label": "cba2" }] as const;
-export const ROUTES_records = ROUTES_records_readonly.concat(); // mutable records
-export type ROUTES_Records = typeof ROUTES_records_readonly; // record type
-export type ROUTES_Values = ROUTES_Records[number]["value"]; // values's type
-export enum TEST_Keys {
+export const HELLO_records_readonly = [{ "key": "hello-1", "value": "hello", "label": "cba" }, { "key": "hello-2", "value": "hello2", "label": "cba2" }] as const;
+export const HELLO_records = HELLO_records_readonly.concat(); // mutable records
+export type HELLO_Records = typeof HELLO_records_readonly; // record type
+export type HELLO_Values = HELLO_Records[number]["value"]; // values's type
+export enum HELLO_Keys {
     HelloHello = "HelloHello",
     WorldWorld = "WorldWorld"
 }
-export const ROUTES_key_list = [ROUTES_Keys.Hello1, ROUTES_Keys.Hello2] as const; // key list
-export const ROUTES_kr = krMap(ROUTES_records_readonly, ROUTES_key_list); // key -> record map
-export const ROUTES_vr = vrMap(ROUTES_records_readonly, ROUTES_key_list, "value"); // value -> record map
-export const ROUTES_kv = kvMap(ROUTES_records_readonly, ROUTES_key_list, "value"); // key -> value map
+export const HELLO_key_list = [HELLO_Keys.HelloHello, HELLO_Keys.WorldWorld] as const; // key list
+export const HELLO_kr = krMap(HELLO_records_readonly, HELLO_key_list); // key -> record map
+export const HELLO_vr = vrMap(HELLO_records_readonly, HELLO_key_list, "value"); // value -> record map
+export const HELLO_kv = kvMap(HELLO_records_readonly, HELLO_key_list, "value"); // key -> value map
 ```
 
 ## CLI
