@@ -1,7 +1,7 @@
 {
   "name": "definition",
   "main": "dist/index.js",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "type": "module",
   "author": {
     "name": "anuoua",
