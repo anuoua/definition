@@ -6,10 +6,10 @@ export const TEST_records_readonly = [{ "value": "hello", "key": "hello-hello" }
 export const TEST_records = TEST_records_readonly.concat();
 export type TEST_Records = typeof TEST_records_readonly;
 export type TEST_Values = TEST_Records[number]["value"];
-export const TEST_Keys = {
-    HelloHello: "HelloHello",
-    WorldWorld: "WorldWorld"
-} as const;
+export enum TEST_Keys {
+    HelloHello = "HelloHello",
+    WorldWorld = "WorldWorld"
+}
 export const TEST_key_list = [TEST_Keys.HelloHello, TEST_Keys.WorldWorld] as const;
 export const TEST_kr = krMap(TEST_records_readonly, TEST_key_list);
 export const TEST_vr = vrMap(TEST_records_readonly, TEST_key_list, "value");
