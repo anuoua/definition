@@ -1,4 +1,4 @@
-import { InferKR, Key } from "./types";
+import type { InferKR, Key } from "./types";
 
 export const vrMap = <
   Records extends readonly Record<string, any>[],
