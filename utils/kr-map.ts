@@ -2,14 +2,14 @@ import type { InferKR, Key } from "./types";
 
 export const krMap = <
   Records extends readonly Record<string, any>[],
-  Keys extends readonly [...Key[]]
+  Keys extends readonly [...Key[]],
 >(
   records: Records,
-  keys: Keys
+  keys: Keys,
 ) => {
   type KR = InferKR<Records, Keys>;
   return records.reduce((pre, cur, index) => {
-    pre[keys[index]] = cur;
+    pre[keys[index]!] = cur;
     return pre;
   }, {} as any) as KR;
 };

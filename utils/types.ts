@@ -7,7 +7,7 @@ export type Indices<T extends readonly any[]> = Exclude<
 
 export type InferKR<
   Records extends readonly Record<string, any>[],
-  Keys extends readonly [...Key[]]
+  Keys extends readonly [...Key[]],
 > = {
   [K in Indices<Records> as K extends number
     ? Keys[K]

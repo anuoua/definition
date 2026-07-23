@@ -3,12 +3,12 @@ import type { InferKR, Key } from "./types";
 export const vrMap = <
   Records extends readonly Record<string, any>[],
   Keys extends readonly [...Key[]],
-  Field extends string
+  Field extends string,
 >(
   records: Records,
   // @ts-ignore
   keys: Keys,
-  valueField: Field
+  valueField: Field,
 ) => {
   type KR = InferKR<Records, Keys>;
 
