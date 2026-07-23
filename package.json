@@ -7,6 +7,10 @@
     "name": "anuoua",
     "url": "https://github.com/anuoua"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:anuoua/definition.git"
+  },
   "homepage": "https://github.com/anuoua/definition",
   "bin": {
     "def": "./bin/cli.js"
